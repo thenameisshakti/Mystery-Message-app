@@ -42,7 +42,7 @@ export const authOptions: NextAuthOptions = {
             throw new Error("Incorrect Password");
           }
         } catch (error: any) {
-          throw new Error(err);
+          throw new Error(error);
         }
       },
     }),
@@ -50,7 +50,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token._id = user._id?.toString();
+        token._id = user._id?.toString(); // make sure you will handle it in aggregate pipeline
         token.isverified = user.isVerified;
         token.isAcceptingMessages = user.isAcceptingMessages;
         token.username = user.username;
